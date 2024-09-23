@@ -1,6 +1,6 @@
 # biblioteca
 
-Descripciín basisca de su Proyecto de POO ...
+Es increíble que tan solo esto me haya tomado casi unas 12 horas (no exagero)
 
 # Autores
 
