@@ -19,7 +19,14 @@ public class App {
         String nombreBuscado;
         String cedulaBuscada;
         String codigoBuscado;
-        Biblioteca biblioteca = new Biblioteca("Lista de bibliotecarios");
+        String nombre;
+        String cedula;
+        String telefono;
+        String correo;
+        String salario;
+        String fechaInicio;
+        Biblioteca biblioteca;
+        Bibliotecario bibliotecario;
         Estudiante estudiante;
         Libro libro;
         Prestamo prestamo;
@@ -65,7 +72,7 @@ public class App {
                                 JOptionPane.showMessageDialog(null, bibliotecario, "información", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             /*
-                             * Si el usuario envió un dos se buscara se imprimirá un bibliotecarios de su elección.
+                             * Si el usuario envió un dos se imprimirá un bibliotecarios de su elección.
                              */
                             case "2":
                                 nombreBuscado = JOptionPane.showInputDialog(null, "Escriba el nombre del bibliotecario cuya información busca", "Ingreso de nombre.", JOptionPane.QUESTION_MESSAGE);
@@ -84,7 +91,7 @@ public class App {
                                 JOptionPane.showMessageDialog(null, estudiante, "información", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             /*
-                             * Si el usuario envió un cuatro se buscara se imprimirá un estudiante de su elección.
+                             * Si el usuario envió un cuatro se imprimirá un estudiante de su elección.
                              */
                             case "4":
                                 nombreBuscado = JOptionPane.showInputDialog(null, "Escriba el nombre del estudiante cuya información busca", "Ingreso de nombre.", JOptionPane.QUESTION_MESSAGE);
@@ -103,149 +110,83 @@ public class App {
                                 JOptionPane.showMessageDialog(null, libro, "información", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             /*
-                             * Si el usuario envió un seis se buscara se imprimirá un estudiante de su elección.
+                             * Si el usuario envió un seis se imprimirá un libro de su elección.
                              */
                             case "6":
-                                codigoBuscado = JOptionPane.showInputDialog(null, "Escriba el nombre del estudiante cuya información busca", "Ingreso de nombre.", JOptionPane.QUESTION_MESSAGE);
-                                bibliotecario = biblioteca.buscarBibliotecario(nombreBuscado, cedulaBuscada);
-                                if (bibliotecario != null) {
-                                    JOptionPane.showMessageDialog(null, estudiante, "información", JOptionPane.INFORMATION_MESSAGE);
+                                codigoBuscado = JOptionPane.showInputDialog(null, "Escriba el codigo del libro cuya información busca", "Ingreso de codigo.", JOptionPane.QUESTION_MESSAGE);
+                                libro = biblioteca.buscarLibro(codigoBuscado);
+                                if (libro != null) {
+                                    JOptionPane.showMessageDialog(null, libro, "información", JOptionPane.INFORMATION_MESSAGE);
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "No se ha encontrado un estudiante con esas características.", "información", JOptionPane.INFORMATION_MESSAGE);
-                                }
-                                break;                            
-                            /*
-                             * Si el usuario envió un tres se imprimirán todos sus grupos.
-                             */
-                            case "13":
-                                JOptionPane.showMessageDialog(null, grupoOficina + "\n\n" + grupoFiesta + "\n\n" + grupoAmigos
-                                + "\n\n" + grupoFamilia, "información", JOptionPane.INFORMATION_MESSAGE);
-                                break;
-
-                            /*
-                             * Si el usuario envió un cuatro se buscara se imprimirá un grupo de su elección.
-                             */
-                            case "14":
-                                boolean repetirMiniMenu = true;
-                                for (; repetirMiniMenu;) {
-                                    accionElegida = JOptionPane.showInputDialog(null, "Elija el grupo en el cual esta interesado. \nEnvíe 1 para Oficina. \nEnvíe 2 para Fiesta. \nEnvíe 3 para Amigos. \nEnvíe 4 para Familia.", "Selección de grupo", JOptionPane.QUESTION_MESSAGE);
-
-                                    switch (accionElegida) {
-                                        case "1":
-                                            JOptionPane.showMessageDialog(null, grupoOficina.toString(), "información", JOptionPane.INFORMATION_MESSAGE);
-                                            repetirMiniMenu = false;
-                                            break;
-                                        case "2":
-                                            JOptionPane.showMessageDialog(null, grupoFiesta.toString(), "información", JOptionPane.INFORMATION_MESSAGE);
-                                            repetirMiniMenu = false;
-                                            break;
-                                        case "3":
-                                            JOptionPane.showMessageDialog(null, grupoAmigos.toString(), "información", JOptionPane.INFORMATION_MESSAGE);
-                                            repetirMiniMenu = false;
-                                            break;
-                                        case "4":
-                                            JOptionPane.showMessageDialog(null, grupoFamilia.toString(), "información", JOptionPane.INFORMATION_MESSAGE);
-                                            repetirMiniMenu = false;
-                                            break;
-                                        default:
-                                            JOptionPane.showMessageDialog(null, "El valor ingresado no es valido.", "información", JOptionPane.INFORMATION_MESSAGE);
-                                            break;
-                                    }
+                                    JOptionPane.showMessageDialog(null, "No se ha encontrado un libro con esas características.", "información", JOptionPane.INFORMATION_MESSAGE);
                                 }
                                 break;
-
                             /*
-                             * Si el usuario envió un cinco se imprimirán todas sus reuniones.
+                             * Si el usuario envió un siete se imprimirán todos los prestamos.
                              */
-                            case "15":
-                                JOptionPane.showMessageDialog(null, todasLaReuniones, "información", JOptionPane.INFORMATION_MESSAGE);
+                            case "7":
+                                JOptionPane.showMessageDialog(null, prestamo, "información", JOptionPane.INFORMATION_MESSAGE);
                                 break;
-
                             /*
-                             * Si el usuario envió un cuatro se buscara e imprimirá una reunion de su
-                             * elección.
+                             * Si el usuario envió un ocho se imprimirá un prestamo de su elección.
                              */
-                            case "16":
-                                descripcionReunion = JOptionPane.showInputDialog(null, "Ingrese la descripción de la reunion de la cual desea ver su información.", "Ingreso de descripción.", JOptionPane.QUESTION_MESSAGE);
-                                reunion = todasLaReuniones.buscarReunion(descripcionReunion);
-
-                                if (reunion == null) {
-                                    JOptionPane.showMessageDialog(null, "No se encontró una reunion con esa descripción", "información", JOptionPane.INFORMATION_MESSAGE);
-
+                            case "8":
+                                codigoBuscado = JOptionPane.showInputDialog(null, "Escriba el codigo del prestamo cuya información busca", "Ingreso de codigo.", JOptionPane.QUESTION_MESSAGE);
+                                prestamo = biblioteca.buscarPrestamo(codigoBuscado);
+                                if (prestamo != null) {
+                                    JOptionPane.showMessageDialog(null, prestamo, "información", JOptionPane.INFORMATION_MESSAGE);
                                 } else {
-                                    JOptionPane.showMessageDialog(null, reunion, "información", JOptionPane.INFORMATION_MESSAGE);
-                                    break;
+                                    JOptionPane.showMessageDialog(null, "No se ha encontrado un prestamo con esas características.", "información", JOptionPane.INFORMATION_MESSAGE);
                                 }
                                 break;
-
                             /*
-                             * Si el usuario no ingreso un numero valido, se le informara de ello y se le
-                             * mostrara de nuevo el menu de información.
+                             * Si el usuario no ingreso un numero valido, se le informara de ello y se lemostrara de nuevo el menu de información.
                              */
                             default:
-                                JOptionPane.showMessageDialog(null, "La opción que a ingresado no es valida, recuerde que debe ingresar un numero entre 0 y 4", "información", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "La opción que a ingresado no es valida, recuerde que debe ingresar un numero entre 0 y 8", "información", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                         }
                     } 
                     break;
-
                 /*
-                 * Si el usuario envió un dos accederá a nuevas opciones que le permitirán
-                 * gestionar la información de sus contactos.
+                 * Si el usuario envió un dos accederá a nuevas opciones que le permitirán gestionar la información.
                  */
                 case "2":
                     boolean repetirMenu2 = true;
                     for (; repetirMenu2;) {
-                        accionElegida = JOptionPane.showInputDialog(null, "¿Que desea hacer? \n\nEnvíe '1' para crear un nuevo contacto \nEnvíe '2' para eliminar un contacto. \nEnvíe '3' para actualizar la información de un contacto. \nEnvíe '0' para regresar al menu anterior.", "Menu de contactos", JOptionPane.QUESTION_MESSAGE);
-
+                        accionElegida = JOptionPane.showInputDialog(null, "¿Que desea hacer? \n\nEnvíe '1' para crear un nuevo bibliotecario \nEnvíe '2' para eliminar un bibliotecario. \nEnvíe '3' para actualizar la información de un bibliotecario. \nEnvíe '0' para regresar al menu anterior.", "Menu de bibliotecarios", JOptionPane.QUESTION_MESSAGE);
                         switch (accionElegida) {
-
                             /*
                              * Si el usuario envió un cero regresara al menu inicial.
                              */
                             case "0":
                                 repetirMenu2 = false;
                                 break;
-
                             /*
-                             * Si el usuario envío un uno se le solicitara información y se creara un
-                             * contacto con base en ella.
+                             * Si el usuario envío un uno se le solicitara información y se creara un bibliotecario con base en ella.
                              */
                             case "1":
                                 boolean repetirIngreso = true;
                                 for (; repetirIngreso;) {
-                                    nombre = JOptionPane.showInputDialog(null, "Ingrese un nombre para su contacto:", "Ingreso de nombre.", JOptionPane.QUESTION_MESSAGE);
-
-                                    alias = JOptionPane.showInputDialog(null, "Ingrese un alias para su contacto:", "Ingreso de alias.", JOptionPane.QUESTION_MESSAGE);
-            
-                                    direccion = JOptionPane.showInputDialog(null, "Ingrese una dirección para su contacto:", "Ingreso de dirección.", JOptionPane.QUESTION_MESSAGE);
-                                 
-                                    telefono = JOptionPane.showInputDialog(null, "Ingrese un teléfono para su contacto:", "Ingreso de teléfono.", JOptionPane.QUESTION_MESSAGE);
-                              
-                                    email = JOptionPane.showInputDialog(null, "Ingrese un email para su contacto:", "Ingreso de email.", JOptionPane.QUESTION_MESSAGE);
-
-
-                                    if (!nombre.isEmpty() && !telefono.isEmpty()) {
-                                        contacto = new Contacto(nombre, alias, direccion, telefono, email);
-                                        mensaje = agenda.crearContacto(contacto);
-                                        JOptionPane.showMessageDialog(null, mensaje + "\n" + contacto, "información", JOptionPane.INFORMATION_MESSAGE);
+                                    nombre = JOptionPane.showInputDialog(null, "Ingrese un nombre para el bibliotecario:", "Ingreso de nombre.", JOptionPane.QUESTION_MESSAGE);
+                                    cedula = JOptionPane.showInputDialog(null, "Ingrese una cedula para el bibliotecario:", "Ingreso de cedula.", JOptionPane.QUESTION_MESSAGE);
+                                    telefono = JOptionPane.showInputDialog(null, "Ingrese un telefono para el bibliotecario:", "Ingreso de telefono.", JOptionPane.QUESTION_MESSAGE);
+                                    correo = JOptionPane.showInputDialog(null, "Ingrese un correo para el bibliotecario:", "Ingreso de correo.", JOptionPane.QUESTION_MESSAGE);
+                                    salario = JOptionPane.showInputDialog(null, "Ingrese un salario para el bibliotecario:", "Ingreso de salario.", JOptionPane.QUESTION_MESSAGE);
+                                    fechaInicio = JOptionPane.showInputDialog(null, "Ingrese una Fecha de Inicio para el bibliotecario:", "Ingreso de Fecha de Inicio.", JOptionPane.QUESTION_MESSAGE);
+                                    if (!nombre.isEmpty() && !cedula.isEmpty()) {
+                                        bibliotecario = new Bibliotecario(nombre, cedula, telefono, correo, salario, fechaInicio);
+                                        mensaje = biblioteca.crearBibiliotecario(bibliotecario);
+                                        JOptionPane.showMessageDialog(null, mensaje + "\n" + bibliotecario, "información", JOptionPane.INFORMATION_MESSAGE);
                                         repetirIngreso = false;
                                     }else
-                                    if (nombre.isEmpty() && telefono.isEmpty()) {
-                                        JOptionPane.showMessageDialog(null, "No se puede crear un contacto sin nombre ni telefono.", "información", JOptionPane.INFORMATION_MESSAGE);
-                                    }
-                                    if (!nombre.isEmpty() && telefono.isEmpty()) {
-                                        JOptionPane.showMessageDialog(null, "No se puede crear un contacto sin telefono.", "información", JOptionPane.INFORMATION_MESSAGE);
-                                    }
-                                    if (nombre.isEmpty() && !telefono.isEmpty()) {
-                                        JOptionPane.showMessageDialog(null, "No se puede crear un contacto sin telefono.", "información", JOptionPane.INFORMATION_MESSAGE);
+                                    if (nombre.isEmpty() && cedula.isEmpty()) {
+                                        JOptionPane.showMessageDialog(null, "No se puede crear un contacto sin nombre ni cedula.", "información", JOptionPane.INFORMATION_MESSAGE);
                                     }
                                 }
                                 break;
-
                             /*
-                             * Si el usuario envío un dos se le solicitara el nombre y numero para eliminar
-                             * un contacto con dichas características.
+                             * Si el usuario envío un dos se le solicitara el nombre y cedula para eliminar un bibliotecario con dichas características.
                              */
                             case "2":
                                 nombreBuscado = JOptionPane.showInputDialog(null, "Ingrese el nombre del contacto que desea eliminar", "Ingreso de nombre.", JOptionPane.QUESTION_MESSAGE);

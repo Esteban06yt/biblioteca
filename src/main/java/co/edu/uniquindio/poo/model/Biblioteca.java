@@ -7,12 +7,14 @@ public class Biblioteca {
     private Bibliotecario[] listaBibliotecarios = new Bibliotecario[10];
     private Estudiante[] listaEstudiantes = new Estudiante[50];
     private Libro[] listaLibros = new Libro[200];
+    private Prestamo[] listaPrestamos = new Prestamo[20];
 
     public Biblioteca (String nombre){
         this.nombre = nombre;
         this.listaBibliotecarios = new Bibliotecario[10];
         this.listaEstudiantes = new Estudiante[50];
         this.listaLibros = new Libro[200];
+        this.listaPrestamos = new Prestamo[20];
     }
 
     public String getNombre(){
@@ -41,6 +43,13 @@ public class Biblioteca {
     }
     public void setListaLibros(Libro[] listaLibros){
         this.listaLibros = listaLibros;
+    }
+
+    public Prestamo[] getListaPrestamos(){
+        return listaPrestamos;
+    }
+    public void setListaPrestamos(Prestamo[] listaPrestamos){
+        this.listaPrestamos = listaPrestamos;
     }
 
     /*
@@ -109,6 +118,28 @@ public class Biblioteca {
         }
         return mensaje;
     }
+    /*
+     * Este método almacena un nuevo prestamo, solo si hay espacios disponibles y el prestamo aun no ha sido registrado.
+     */
+    public String crearPrestamo(Prestamo nuevoPrestamo){
+        String mensaje = "";
+        int posicionDisponiblePrestamo = 0;
+        Prestamo prestamoEncontrado = null;
+        posicionDisponiblePrestamo = buscarPosicionDisponiblePrestamo();
+        if (posicionDisponiblePrestamo == -1) {
+            mensaje = "\nNo hay espacio para un nuevo prestamo.";
+            return mensaje;
+        } else {
+            prestamoEncontrado = buscarPrestamo(nuevoPrestamo.getCodigo());
+            if (prestamoEncontrado != null) {
+                mensaje = "\nEl prestamo ya se encuentra registrado.";
+            } else {
+                listaPrestamos[posicionDisponiblePrestamo] = nuevoPrestamo;
+                mensaje = "\nEl prestamo se ha almacenado exitosamente.";
+            }
+        }
+        return mensaje;
+    }
 
     /*
      * Este método busca una posición disponible para bibliotecario y la retorna, en caso de no haber espacios disponibles retorna -1.
@@ -152,6 +183,20 @@ public class Biblioteca {
         }
         return posicionDisponibleLibro;
     }
+    /*
+     * Este método busca una posición disponible para prestamo y la retorna, en caso de no haber espacios disponibles retorna -1.
+     */
+    private int buscarPosicionDisponiblePrestamo(){
+        int posicionDisponiblePrestamo = -1;
+        for (int i = 0; i < listaPrestamos.length; i++) {
+            Prestamo prestamo = listaPrestamos[i];
+            if (prestamo == null) {
+                posicionDisponiblePrestamo = i;
+                return posicionDisponiblePrestamo;
+            }
+        }
+        return posicionDisponiblePrestamo;
+    }
 
     /*
      * Este método busca un bibliotecario en base a su nombre y número de cedula.
@@ -186,7 +231,7 @@ public class Biblioteca {
         return estudianteEncontrado;
     }
     /*
-     * Este método busca un libro en base a su titulo y isbn.
+     * Este método busca un libro en base a su codigo.
      */
     public Libro buscarLibro(String codigo){
         Libro libroEncontrado = null;
@@ -200,6 +245,22 @@ public class Biblioteca {
             }
         }
         return libroEncontrado;
+    }
+    /*
+     * Este método busca un prestamo en base a su codigo.
+     */
+    public Prestamo buscarPrestamo(String codigo){
+        Prestamo prestamoEncontrado = null;
+        for (int i = 0; i < listaPrestamos.length; i++) {
+            Prestamo prestamoAux = listaPrestamos[i];
+            if (prestamoAux != null) {
+                if (prestamoAux.getCodigo().equals(codigo)){
+                    prestamoEncontrado = prestamoAux;
+                    return prestamoEncontrado;
+                }
+            }
+        }
+        return prestamoEncontrado;
     }
 
     /*
@@ -253,6 +314,23 @@ public class Biblioteca {
         }
         return mensaje;
     }
+    /*
+     * Este método elimina un prestamo, si lo encuentra.
+     */
+    public String eliminarPrestamo(String codigo){
+        String mensaje = "\nEl prestamo no existe.";
+        for (int i = 0; i < listaPrestamos.length; i++) {
+            Prestamo prestamoAux = listaPrestamos[i];
+            if (prestamoAux != null) {
+                if (prestamoAux.getCodigo().equals(codigo)){
+                    listaPrestamos[i] = null;
+                    mensaje = "\nEl prestamo ha sido eliminado correctamente.";
+                    return mensaje;
+                }                
+            }           
+        }
+        return mensaje;
+    }
 
     /*
      * Este método actualiza la información de un bibliotecario, si lo encuentra.
@@ -288,7 +366,7 @@ public class Biblioteca {
         }
         return mensaje;
     }
-        /*
+    /*
      * Este método actualiza la información de un libro, si lo encuentra.
      */
     public String actualizarLibro(String codigo, String isbn, String autor, String titulo, LocalDate fecha, Integer unidadesDisponibles){
@@ -302,6 +380,22 @@ public class Biblioteca {
             libroEncontrado.setFecha(fecha);
             libroEncontrado.setUnidadesDisponibles(unidadesDisponibles);
             mensaje = "\nLa información del libro ha sido actualizada de manera satisfactoria.";
+            return mensaje;
+        }
+        return mensaje;
+    }
+    /*
+     * Este método actualiza la información de un prestamo, si lo encuentra.
+     */
+    public String actualizarPrestamo(LocalDate fechaPrestamo, LocalDate fechaDevolucion, String codigo, Double total){
+        String mensaje = "\nEl prestamo no se encuentra registrado.";
+        Prestamo prestamoEncontrado = buscarPrestamo(codigo);
+        if (prestamoEncontrado != null) {
+            prestamoEncontrado.setFechaPrestamo(fechaPrestamo);
+            prestamoEncontrado.setFechaDevolucion(fechaDevolucion);
+            prestamoEncontrado.setCodigo(codigo);
+            prestamoEncontrado.setTotal(total);
+            mensaje = "\nLa información del prestamo ha sido actualizada de manera satisfactoria.";
             return mensaje;
         }
         return mensaje;
