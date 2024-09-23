@@ -25,4 +25,9 @@ public class Bibliotecario  extends Persona{
     public void setFechaInicio(LocalDate fechaInicio){
         this.fechaInicio = fechaInicio;
     }
+
+    @Override
+    public String toString(){
+        return "\nBibliotecario [Nombre: "+getNombre() + ", Cedula; "+getCedula() + ", Telefono: "+getTelefono() + ", Correo: "+getCorreo() + ", Salario:"+salario + "Fecha Inicio: "+fechaInicio + "]";
+    }
 }

@@ -60,4 +60,9 @@ public class Libro {
     public void setUnidadesDisponibles(Integer unidadesDisponibles){
         this.unidadesDisponibles = unidadesDisponibles;
     }
+
+    @Override
+    public String toString(){
+        return "\nLibro [Codigo: "+codigo + ", Isbn; "+isbn + ", Autor: "+autor + ", Titulo: "+titulo + ", Fecha:"+fecha + "Unidades Disponibles: "+unidadesDisponibles + "]";
+    }
 }

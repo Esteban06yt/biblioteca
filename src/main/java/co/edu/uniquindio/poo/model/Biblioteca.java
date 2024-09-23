@@ -99,7 +99,7 @@ public class Biblioteca {
             mensaje = "\nNo hay espacio para un nuevo libro.";
             return mensaje;
         } else {
-            libroEncontrado = buscarLibro(nuevoLibro.getTitulo(), nuevoLibro.getIsbn());
+            libroEncontrado = buscarLibro(nuevoLibro.getCodigo());
             if (libroEncontrado != null) {
                 mensaje = "\nEl libro ya se encuentra registrado.";
             } else {
@@ -188,12 +188,12 @@ public class Biblioteca {
     /*
      * Este método busca un libro en base a su titulo y isbn.
      */
-    public Libro buscarLibro(String titulo, String isbn){
+    public Libro buscarLibro(String codigo){
         Libro libroEncontrado = null;
         for (int i = 0; i < listaLibros.length; i++) {
             Libro libroAux = listaLibros[i];
             if (libroAux != null) {
-                if (libroAux.getTitulo().equals(titulo) && libroAux.getIsbn().equals(isbn)){
+                if (libroAux.getCodigo().equals(codigo)){
                     libroEncontrado = libroAux;
                     return libroEncontrado;
                 }
@@ -293,7 +293,7 @@ public class Biblioteca {
      */
     public String actualizarLibro(String codigo, String isbn, String autor, String titulo, LocalDate fecha, Integer unidadesDisponibles){
         String mensaje = "\nEl libro no se encuentra registrado.";
-        Libro libroEncontrado = buscarLibro(titulo, isbn);
+        Libro libroEncontrado = buscarLibro(codigo);
         if (libroEncontrado != null) {
             libroEncontrado.setCodigo(codigo);
             libroEncontrado.setIsbn(isbn);
