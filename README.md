@@ -1,11 +1,10 @@
 # biblioteca
 
-Es increíble que tan solo esto me haya tomado casi unas 12 horas (no exagero)
+Programa de gestión para una biblioteca.
 
 # Autores
 
-- Autor 1
-- Autor 2
+- Esteban Polanco Méndez
 
 # Herramientas
 
