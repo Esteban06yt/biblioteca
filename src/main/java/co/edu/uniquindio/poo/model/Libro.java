@@ -63,6 +63,6 @@ public class Libro {
 
     @Override
     public String toString(){
-        return "\nLibro [Codigo: "+codigo + ", Isbn; "+isbn + ", Autor: "+autor + ", Titulo: "+titulo + ", Fecha:"+fecha + "Unidades Disponibles: "+unidadesDisponibles + "]";
+        return "\nLibro [Codigo: "+codigo + ", Isbn; "+isbn + ", Autor: "+autor + ", Titulo: "+titulo + ", Fecha:"+fecha + ", Unidades Disponibles: "+unidadesDisponibles + "]";
     }
 }

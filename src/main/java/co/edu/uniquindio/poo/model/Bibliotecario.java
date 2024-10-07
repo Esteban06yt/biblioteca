@@ -28,6 +28,6 @@ public class Bibliotecario  extends Persona{
 
     @Override
     public String toString(){
-        return "\nBibliotecario [Nombre: "+getNombre() + ", Cedula; "+getCedula() + ", Telefono: "+getTelefono() + ", Correo: "+getCorreo() + ", Salario:"+salario + "Fecha Inicio: "+fechaInicio + "]";
+        return "\nBibliotecario [Nombre: "+getNombre() + ", Cedula; "+getCedula() + ", Telefono: "+getTelefono() + ", Correo: "+getCorreo() + ", Salario:"+salario + ", Fecha Inicio: "+fechaInicio + "]";
     }
 }

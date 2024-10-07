@@ -300,12 +300,12 @@ public class Biblioteca {
     /*
      * Este método elimina un libro, si lo encuentra.
      */
-    public String eliminarLibro(String titulo, String isbn){
+    public String eliminarLibro(String codigo){
         String mensaje = "\nEl libro no existe.";
         for (int i = 0; i < listaLibros.length; i++) {
             Libro libroAux = listaLibros[i];
             if (libroAux != null) {
-                if (libroAux.getTitulo().equals(titulo) && libroAux.getIsbn().equals(isbn)){
+                if (libroAux.getCodigo().equals(codigo)){
                     listaLibros[i] = null;
                     mensaje = "\nEl libro ha sido eliminado correctamente.";
                     return mensaje;
